@@ -1,5 +1,7 @@
 import serial
 import time
+from image_processing import ImageProcessing
+
 
 serial_port = "/dev/cu.usbmodem74239701"
 
@@ -14,6 +16,9 @@ def write_read(x):
 
 
 while True:
-    num = input("Enter a number: ")  # Taking input from user
-    value = write_read(num)
+    value = ImageProcessing().do_capture()
     print(value)
+    if value is None:
+        write_read("0")
+    else:
+        write_read(str(value))
